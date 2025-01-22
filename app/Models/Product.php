@@ -8,9 +8,14 @@ use Cviebrock\EloquentSluggable\Sluggable;
 
 class Product extends Model
 {
+    use Sluggable;
+
     protected $guarded = ['id'];
 
-    use Sluggable;
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
 
     public function sluggable(): array
     {

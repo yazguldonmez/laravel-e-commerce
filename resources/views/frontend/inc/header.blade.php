@@ -57,7 +57,7 @@
                                                 @if ($subCategory->cat_ust == $category->id)
                                                     <li>
                                                         <a
-                                                            href="{{ route($category->slug . '.clothing', $subCategory->slug . '.clothing') }}">
+                                                            href="{{ route($category->slug . '.clothing', $subCategory->slug) }}">
                                                             {{ $subCategory->name }}
                                                         </a>
                                                     </li>
