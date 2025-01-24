@@ -10,17 +10,26 @@ use App\Models\Category;
 
 class PageController extends Controller
 {
-    public function products(Request $request)
+    public function products(Request $request, $slug = null)
     {
+
+        $category = request()->segment(1) ?? null;
 
         $order = $request->order ?? 'id';
         $sort = $request->sort ?? 'desc';
 
         $products = Product::where('status', '1')
             ->where(function ($query) use ($request) {})
-            ->with('category:id,name,slug'); //Eager loading için...
+            ->with('category:id,name,slug') //Categories tablosu ile ilişki kuruldu, ürünler için yalnızca ilgili sütunlar çağırıldı.
+            ->whereHas('category', function ($query) use ($category, $slug) {
+                if (!empty($slug)) {
+                    $query->where('slug', $slug);
+                }
 
-        $minPrice = $products->min('price'); //filtremeledeki filter by price için...
+                return $query;
+            });
+
+        $minPrice = $products->min('price');
         $maxPrice = $products->max('price');
 
         $sizeLists = Product::where('status', '1')->groupBy('size')->pluck('size')->toArray();
@@ -29,20 +38,20 @@ class PageController extends Controller
 
         $products = $products->orderBy($order, $sort)->paginate(20);
 
-
-        $categories = Category::where('status', '1')
-            ->where('cat_ust', null)
-            ->withCount('items')
-            ->get();
-
-        return view('frontend.pages.products', compact('products', 'categories', 'minPrice', 'maxPrice', 'sizeLists', 'colors'));
+        return view('frontend.pages.products', compact('products', 'minPrice', 'maxPrice', 'sizeLists', 'colors'));
     }
 
     public function productDetail($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::whereSlug($slug)->where('status', '1')->firstOrFail();
 
-        return view('frontend.pages.product', compact('product'));
+        $products = Product::where('id', '!=', $product->id) //Mevcut ürünün önerilmemesi için.
+            ->where('category_id', $product->category_id) // Aynı kategorideki ürünlerin getirilmesi için, ilişkili ürün için.
+            ->where('status', '1')
+            ->limit(6)
+            ->get(); //Featured Products için.
+
+        return view('frontend.pages.product', compact('product', 'products'));
     }
 
     public function about()

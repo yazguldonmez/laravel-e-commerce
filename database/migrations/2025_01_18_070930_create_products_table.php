@@ -29,7 +29,7 @@ return new class extends Migration
             $table->enum('status', ['0', '1'])->nullable()->default('0');
             $table->longText('content')->nullable();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            //$table->foreign('category_id')->references('id')->on('categories');
 
             $table->timestamps();
         });

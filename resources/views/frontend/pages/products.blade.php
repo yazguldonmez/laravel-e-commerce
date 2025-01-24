@@ -29,7 +29,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                         @if (!empty($categories) && $categories->count() > 0)
-                                            @foreach ($categories as $category)
+                                            @foreach ($categories->where("cat_ust",null) as $category)
                                                 <a class="dropdown-item"
                                                     href="{{ route($category->slug . '.clothing') }}">{{ $category->name }}</a>
                                             @endforeach
@@ -97,7 +97,7 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                         <ul class="list-unstyled mb-0">
                             @if (!empty($categories) && $categories->count() > 0)
-                                @foreach ($categories as $category)
+                                @foreach ($categories->where("cat_ust",null) as $category)
                                     <li class="mb-1">
                                         <a class="d-flex" href="{{ route($category->slug . '.clothing') }}">
                                             <span>{{ $category->name }}</span>
@@ -153,9 +153,9 @@
                                 <h2>Categories</h2>
                             </div>
                         </div>
-                        <div class="row">
+                         <div class="row">
                             @if (!empty($categories))
-                                @foreach ($categories as $category)
+                                @foreach ($categories->where("cat_ust",null) as $category)
                                     <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade"
                                         data-aos-delay="">
                                         <a class="block-2-item" href="{{ route($category->slug . '.clothing') }}">
@@ -182,7 +182,6 @@
 
 @section('customjs')
     <script>
-        w
         var minPrice = {{ $minPrice }}
         var maxPrice = {{ $maxPrice }}
     </script>
