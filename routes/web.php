@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\PageHomeController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,5 +31,6 @@ Route::group(['middleware' => 'site.settings'], function () {
     Route::post('/contact', [AjaxController::class, 'contactStore'])->name('page.contact.store');
     Route::get('/discounted-products', [PageController::class, 'discountedProducts'])->name('discounted.products');
 
-    Route::get('/cart', [PageController::class, 'cart'])->name('page.cart');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
 });

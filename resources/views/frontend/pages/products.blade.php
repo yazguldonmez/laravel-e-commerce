@@ -29,7 +29,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                         @if (!empty($categories) && $categories->count() > 0)
-                                            @foreach ($categories->where("cat_ust",null) as $category)
+                                            @foreach ($categories->where('cat_ust', null) as $category)
                                                 <a class="dropdown-item"
                                                     href="{{ route($category->slug . '.clothing') }}">{{ $category->name }}</a>
                                             @endforeach
@@ -68,6 +68,7 @@
                                             </h3>
                                             <p class="mb-0">{{ $product->short_description }}</p>
                                             <p class="text-primary font-weight-bold">{{ $product->price . '$' }}</p>
+                                            <p><a href="#" class="buy-now btn btn-sm btn-primary">Add to Cart</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +98,7 @@
                         <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
                         <ul class="list-unstyled mb-0">
                             @if (!empty($categories) && $categories->count() > 0)
-                                @foreach ($categories->where("cat_ust",null) as $category)
+                                @foreach ($categories->where('cat_ust', null) as $category)
                                     <li class="mb-1">
                                         <a class="d-flex" href="{{ route($category->slug . '.clothing') }}">
                                             <span>{{ $category->name }}</span>
@@ -153,9 +154,9 @@
                                 <h2>Categories</h2>
                             </div>
                         </div>
-                         <div class="row">
+                        <div class="row">
                             @if (!empty($categories))
-                                @foreach ($categories->where("cat_ust",null) as $category)
+                                @foreach ($categories->where('cat_ust', null) as $category)
                                     <div class="col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0" data-aos="fade"
                                         data-aos-delay="">
                                         <a class="block-2-item" href="{{ route($category->slug . '.clothing') }}">

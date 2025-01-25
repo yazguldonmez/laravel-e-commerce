@@ -27,61 +27,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
-                                    </td>
-                                    <td class="product-name">
-                                        <h2 class="h5 text-black">Top Up T-Shirt</h2>
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td>
-                                        <div class="input-group mb-3" style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-primary js-btn-minus"
-                                                    type="button">&minus;</button>
-                                            </div>
-                                            <input type="text" class="form-control text-center" value="1"
-                                                placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-primary js-btn-plus"
-                                                    type="button">&plus;</button>
-                                            </div>
-                                        </div>
+                                @if ($cartItem)
+                                    @foreach ($collection as $item)
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <img src="{{ asset($cart['image']) ?? '' }}" alt="Image" class="img-fluid">
+                                            </td>
+                                            <td class="product-name">
+                                                <h2 class="h5 text-black">{{ $cart['name'] ?? '' }}</h2>
+                                            </td>
+                                            <td>{{ '$' . $cart['price'] }}</td>
+                                            <td>
+                                                <div class="input-group mb-3" style="max-width: 120px;">
+                                                    <div class="input-group-prepend">
+                                                        <button class="btn btn-outline-primary js-btn-minus"
+                                                            type="button">&minus;</button>
+                                                    </div>
+                                                    <input type="text" class="form-control text-center"
+                                                        value="{{ $cart['quantity'] }}" placeholder=""
+                                                        aria-label="Example text with button addon"
+                                                        aria-describedby="button-addon1">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-primary js-btn-plus"
+                                                            type="button">&plus;</button>
+                                                    </div>
+                                                </div>
 
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <img src="images/cloth_2.jpg" alt="Image" class="img-fluid">
-                                    </td>
-                                    <td class="product-name">
-                                        <h2 class="h5 text-black">Polo Shirt</h2>
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td>
-                                        <div class="input-group mb-3" style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-primary js-btn-minus"
-                                                    type="button">&minus;</button>
-                                            </div>
-                                            <input type="text" class="form-control text-center" value="1"
-                                                placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-primary js-btn-plus"
-                                                    type="button">&plus;</button>
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
-                                </tr>
+                                            </td>
+                                            <td>{{ '$' . $cart['price'] * $cart['quantity'] }}</td>
+                                            <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -119,20 +96,12 @@
                                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
-                                </div>
-                            </div>
                             <div class="row mb-5">
                                 <div class="col-md-6">
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">{{ $totalPrice }}</strong>
                                 </div>
                             </div>
 
