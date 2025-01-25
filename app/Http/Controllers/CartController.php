@@ -22,11 +22,13 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $productId = $request->product_id;
+
+
         $quantity = $request->quantity;
         $size = $request->sizes;
 
-        $product = Product::find($productId);
 
+        $product = Product::find($productId);
         if (!$product) {
             return back()->withError('Product Not Found!');
         }
@@ -47,7 +49,7 @@ class CartController extends Controller
 
         session(['cart' => $cartItem]);
 
-        return back()->with('error', 'Product added to cart.');
+        return back();
     }
 
     public function remove()

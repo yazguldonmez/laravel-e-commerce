@@ -28,7 +28,7 @@
                             </thead>
                             <tbody>
                                 @if ($cartItem)
-                                    @foreach ($collection as $item)
+                                    @foreach ($cartItem as $cart)
                                         <tr>
                                             <td class="product-thumbnail">
                                                 <img src="{{ asset($cart['image']) ?? '' }}" alt="Image" class="img-fluid">
