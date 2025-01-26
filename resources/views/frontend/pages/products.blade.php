@@ -68,7 +68,7 @@
                                             </h3>
                                             <p class="mb-0">{{ $product->short_description }}</p>
                                             <p class="text-primary font-weight-bold">{{ $product->price . '$' }}</p>
-                                            <p><a href="#" class="buy-now btn btn-sm btn-primary">Add to Cart</a></p>
+                                            {{-- <p><a href="#" class="buy-now btn btn-sm btn-primary">Add to Cart</a></p> --}}
                                         </div>
                                     </div>
                                 </div>

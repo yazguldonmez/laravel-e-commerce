@@ -22,11 +22,8 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $productId = $request->product_id;
-
-
         $quantity = $request->quantity;
         $size = $request->sizes;
-
 
         $product = Product::find($productId);
         if (!$product) {
@@ -49,11 +46,20 @@ class CartController extends Controller
 
         session(['cart' => $cartItem]);
 
-        return back();
+        return back()->with('success', 'Product added to cart');
     }
 
-    public function remove()
+    public function remove(Request $request)
     {
-        return view('frontend.pages.cart');
+        $productId = $request->product_id;
+        $cartItem = session('cart', []);
+
+        if (array_key_exists($productId, $cartItem)) {
+            unset($cartItem[$productId]);
+        }
+
+        session(['cart' => $cartItem]);
+
+        return back()->with('success', 'Item successfully deleted from cart.');
     }
 }

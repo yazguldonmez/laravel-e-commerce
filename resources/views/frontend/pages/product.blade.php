@@ -14,6 +14,23 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <img src="{{ asset($product->image) }}" alt="Image" class="img-fluid">
                 </div>
@@ -88,7 +105,8 @@
                                         </figure>
                                         <div class="block-4-text p-4">
                                             <h3>
-                                                <a href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
+                                                <a
+                                                    href="{{ route('product.detail', $item->slug) }}">{{ $item->name }}</a>
                                             </h3>
                                             <p class="mb-0">{{ $item->short_description }}</p>
                                             <p class="text-primary font-weight-bold">{{ $item->price }}</p>

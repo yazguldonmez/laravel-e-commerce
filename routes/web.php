@@ -33,4 +33,5 @@ Route::group(['middleware' => 'site.settings'], function () {
 
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart', [CartController::class, 'remove'])->name('cart.remove');
 });

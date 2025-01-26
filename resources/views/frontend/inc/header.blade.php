@@ -24,7 +24,7 @@
                             <li>
                                 <a href="{{route('cart.index')}}" class="site-cart">
                                     <span class="icon icon-shopping_cart"></span>
-                                    <span class="count">2</span>
+                                    <span class="count">{{ count(session('cart')) ?? 0 }}</span>
                                 </a>
                             </li>
                             <li class="d-inline-block d-md-none ml-md-0"><a href="#"

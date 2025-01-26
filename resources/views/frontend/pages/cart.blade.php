@@ -12,6 +12,23 @@
 
     <div class="site-section">
         <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
             <div class="row mb-5">
                 <form class="col-md-12" method="post">
                     <div class="site-blocks-table">
@@ -28,10 +45,11 @@
                             </thead>
                             <tbody>
                                 @if ($cartItem)
-                                    @foreach ($cartItem as $cart)
+                                    @foreach ($cartItem as $key => $cart)
                                         <tr>
                                             <td class="product-thumbnail">
-                                                <img src="{{ asset($cart['image']) ?? '' }}" alt="Image" class="img-fluid">
+                                                <img src="{{ asset($cart['image']) ?? '' }}" alt="Image"
+                                                    class="img-fluid">
                                             </td>
                                             <td class="product-name">
                                                 <h2 class="h5 text-black">{{ $cart['name'] ?? '' }}</h2>
@@ -55,7 +73,14 @@
 
                                             </td>
                                             <td>{{ '$' . $cart['price'] * $cart['quantity'] }}</td>
-                                            <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                            <td>
+                                                <form action="{{ route('cart.remove') }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="product_id" value="{{ $key }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm">X</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endif
