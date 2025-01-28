@@ -9,7 +9,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cartItem = session('cart', []);
+        $cartItem = session('cart', []); // add fonksiyonundaki session carttan alacak...
         $totalPrice = 0;
 
         foreach ($cartItem as $cart) {
@@ -30,12 +30,17 @@ class CartController extends Controller
             return back()->withError('Product Not Found!');
         }
 
-        $cartItem = session('cart', []);
+        $request->validate([
+            'sizes' => 'required|in:S,M,L,XL',
+            'quantity' => 'required|integer|min:1',
+        ]);
 
-        if (array_key_exists($productId, $cartItem)) {
-            $cartItem[$productId]['quantity'] += $quantity;
+        $cartItem = session('cart', []); //Sepetteki mevcut ürünleri al, sepette ürün yoksa boş bir dizi döndür.
+
+        if (array_key_exists($productId, $cartItem)) { //$productId, $cartItem dizisinde bir key olarak var mı? Yani, ürün sepette var mı?
+            $cartItem[$productId]['quantity'] += $quantity; // zaten sepette olduğu için adedini arttır.
         } else {
-            $cartItem[$productId] = [
+            $cartItem[$productId] = [ //Yoksa yeni bir ürün olarak sepete ekle.
                 'image' => $product->image,
                 'name' => $product->name,
                 'price' => $product->price,
@@ -44,7 +49,7 @@ class CartController extends Controller
             ];
         }
 
-        session(['cart' => $cartItem]);
+        session(['cart' => $cartItem]); // Oluşturulan $cartItem'ı, cart olarak sessiona ekle. Yani, sepet güncellenir.
 
         return back()->with('success', 'Product added to cart');
     }
