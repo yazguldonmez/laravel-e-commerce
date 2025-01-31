@@ -5,7 +5,10 @@ use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\CartController;
+use App\Models\Slider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,14 +42,15 @@ Route::group(['middleware' => 'site.settings'], function () {
     Route::post('/cart', [CartController::class, 'add'])->name('cart.add');
     Route::delete('/cart', [CartController::class, 'remove'])->name('cart.remove');
 
+    Auth::routes();
+
     Route::get('/login', [CustomAuthController::class, 'login'])->name('login');
+    Route::get('/register', [CustomAuthController::class, 'register'])->name('register');
+    Route::get('/logout', [CustomAuthController::class, 'logout'])->name('logout');
 });
 
 //Backend Routes || +routes/panel.php
-Route::group(['middleware' => ['panel.settings','auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['middleware' => ['panel.settings', 'auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::resource('/slider', SliderController::class);
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

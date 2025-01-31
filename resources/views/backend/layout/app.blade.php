@@ -199,8 +199,9 @@
             @include('backend.inc.sidebar')
 
             <div class="main-panel">
-                @yield('content')
-
+                <div class="content-wrapper">
+                    @yield('content')
+                </div>
                 @include('backend.inc.footer')
 
             </div>
