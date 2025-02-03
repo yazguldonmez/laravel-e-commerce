@@ -102,7 +102,8 @@
                                     <li class="mb-1">
                                         <a class="d-flex" href="{{ route($category->slug . '.clothing') }}">
                                             <span>{{ $category->name }}</span>
-                                            <span class="text-black ml-auto">({{ $category->items_count }})</span>
+                                            <span
+                                                class="text-black ml-auto">({{ $category->getTotalProductCount() }})</span>
                                         </a>
                                     </li>
                                 @endforeach
