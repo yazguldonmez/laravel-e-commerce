@@ -210,8 +210,7 @@
 
     </div>
 
-
-
+    <script src="{{ asset('backend/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/js/vendor.bundle.base.js') }}"></script>
     <script src="{{ asset('backend/vendors/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/datatables.net/jquery.dataTables.js') }}"></script>
@@ -225,6 +224,9 @@
     <script src="{{ asset('backend/js/dashboard.js') }}"></script>
     <script src="{{ asset('backend/js/Chart.roundedBarCharts.js') }}"></script>
     <script src="{{ asset('backend/js/file-upload.js') }}"></script>
+    <script src="{{ asset('backend/js/bootstrap-toggle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    @yield('customjs')
 </body>
 
 </html>

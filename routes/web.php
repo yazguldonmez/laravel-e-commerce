@@ -53,4 +53,5 @@ Route::group(['middleware' => 'site.settings'], function () {
 Route::group(['middleware' => ['panel.settings', 'auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::resource('/slider', SliderController::class);
+    Route::post('/slider-status/update', [SliderController::class, 'status'])->name('slider.status');
 });
